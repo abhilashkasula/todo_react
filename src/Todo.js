@@ -8,7 +8,7 @@ class Todo extends React.Component {
     super(props);
     this.state = {todoItems: [], nextId: 1};
     this.addItem = this.addItem.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.toggleStatus = this.toggleStatus.bind(this);
   }
 
   addItem(text) {
@@ -22,7 +22,7 @@ class Todo extends React.Component {
     }));
   }
 
-  handleClick(id) {
+  toggleStatus(id) {
     this.setState((state) => {
       const todoItems = state.todoItems.map((item) => Object.assign({}, item));
       const item = todoItems.find((item) => item.id === id);
@@ -36,7 +36,7 @@ class Todo extends React.Component {
     return (
       <div>
         <h1 className="header">Todo</h1>
-        <TodoItems items={this.state.todoItems} onClick={this.handleClick} />
+        <TodoItems items={this.state.todoItems} onClick={this.toggleStatus} />
         <Input onSubmit={this.addItem} />
       </div>
     );

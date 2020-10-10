@@ -1,18 +1,30 @@
 import React from 'react';
 import './todo.css';
 
-const TodoItem = ({text, status}) => (
-  <div className="todo-item">
-    <div className={status === 'done' ? 'item-done' : 'item-undone'}></div>
-    <label className={status === 'done' ? 'item-text-done' : null}>
-      {text}
-    </label>
-  </div>
-);
+const TodoItem = ({id, text, status, onClick}) => {
+  // console.log(id);
+  return (
+    <div className="todo-item">
+      <div className={status === 'done' ? 'item-done' : 'item-undone'}></div>
+      <label
+        className={status === 'done' ? 'item-text-done' : null}
+        onClick={() => onClick(id)}
+      >
+        {text}
+      </label>
+    </div>
+  );
+};
 
 const TodoItems = (props) => {
-  const items = props.items.map(({text, status}, index) => (
-    <TodoItem text={text} status={status} key={index} />
+  const items = props.items.map(({id, text, status}) => (
+    <TodoItem
+      id={id}
+      text={text}
+      status={status}
+      key={id}
+      onClick={props.onClick}
+    />
   ));
 
   return <div>{items}</div>;
@@ -21,11 +33,16 @@ const TodoItems = (props) => {
 class Todo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {todoItems: [{text: 'Buy milk', status: 'done'}], text: ''};
+    this.state = {
+      todoItems: [{text: 'Buy milk', status: 'done', id: 0}],
+      text: '',
+      nextId: 1,
+    };
     this.handleInputValue = (e) => {
       this.handleInput(e.target.value);
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleInput(text) {
@@ -34,17 +51,31 @@ class Todo extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    
+
     this.setState((state) => ({
-      todoItems: state.todoItems.concat({text: state.text, status: 'not-done'}),
+      todoItems: state.todoItems.concat({
+        id: state.nextId,
+        text: state.text,
+        status: 'undone',
+      }),
       text: '',
+      nextId: state.nextId + 1,
     }));
+  }
+
+  handleClick(id) {
+    this.setState((state) => {
+      const newTodoItems = state.todoItems.map(item => Object.assign({}, item));
+      const item = newTodoItems.find((item) => item.id === id);
+      item.status = item.status === 'done' ? 'undone' : 'done';
+      return {todoItems: newTodoItems};
+    });
   }
 
   render() {
     return (
       <div>
-        <TodoItems items={this.state.todoItems} />
+        <TodoItems items={this.state.todoItems} onClick={this.handleClick} />
         <form onSubmit={this.handleSubmit}>
           <input value={this.state.text} onChange={this.handleInputValue} />
         </form>

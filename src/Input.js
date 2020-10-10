@@ -3,7 +3,7 @@ import React from 'react';
 class Input extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {text: ''};
+    this.state = {text: props.value || ''};
     this.handleInput = (e) => this.handleInputValue(e.target.value);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -29,7 +29,11 @@ class Input extends React.Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <input value={this.state.text} onChange={this.handleInput} />
+        <input
+          value={this.state.text}
+          onChange={this.handleInput}
+          className={this.props.className}
+        />
       </form>
     );
   }

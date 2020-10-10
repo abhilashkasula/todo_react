@@ -1,14 +1,16 @@
 import React from 'react';
 import TodoItems from './TodoItems';
+import Header from './Header';
 import Input from './Input';
 import './todo.css';
 
 class Todo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {todoItems: [], nextId: 1};
+    this.state = {todoItems: [], nextId: 1, title: 'Todo'};
     this.addItem = this.addItem.bind(this);
     this.updateStatus = this.updateStatus.bind(this);
+    this.updateTitle = this.updateTitle.bind(this);
   }
 
   addItem(text) {
@@ -32,10 +34,14 @@ class Todo extends React.Component {
     });
   }
 
+  updateTitle(title) {
+    this.setState(() => ({title}));
+  }
+
   render() {
     return (
       <div>
-        <h1 className="header">Todo</h1>
+        <Header title={this.state.title} onSubmit={this.updateTitle} />
         <TodoItems items={this.state.todoItems} onClick={this.updateStatus} />
         <Input onSubmit={this.addItem} />
       </div>

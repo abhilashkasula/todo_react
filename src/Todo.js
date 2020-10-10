@@ -5,11 +5,7 @@ import './todo.css';
 class Todo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      todoItems: [{text: 'Buy milk', status: 'done', id: 0}],
-      text: '',
-      nextId: 1,
-    };
+    this.state = {todoItems: [], text: '', nextId: 1};
     this.handleInputValue = (e) => {
       this.handleInput(e.target.value);
     };
@@ -50,7 +46,7 @@ class Todo extends React.Component {
         <h1>Todo</h1>
         <TodoItems items={this.state.todoItems} onClick={this.handleClick} />
         <form onSubmit={this.handleSubmit}>
-          <input value={this.state.text} onChange={this.handleInputValue} />
+          <input value={this.state.text} onChange={this.handleInputValue} style={{fontSize: '20px'}} />
         </form>
       </div>
     );

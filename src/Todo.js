@@ -1,9 +1,12 @@
 import React from 'react';
+import './todo.css';
 
 const TodoItem = ({text, status}) => (
-  <div style={{display: 'flex'}}>
-    <div style={{background: 'lightblue', width: '10px', marginRight: '10px'}} ></div>
-    <label style={status === 'done' ? {textDecoration: 'line-through'} : {}} >{text}</label>
+  <div className="todo-item">
+    <div className={status === 'done' ? 'item-done' : 'item-undone'}></div>
+    <label className={status === 'done' ? 'item-text-done': null} >
+      {text}
+    </label>
   </div>
 );
 
@@ -18,7 +21,7 @@ class Todo extends React.Component {
       <TodoItem text={text} status={status} />
     ));
 
-    return <div >{items}</div>;
+    return <div>{items}</div>;
   }
 }
 

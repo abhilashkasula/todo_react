@@ -1,0 +1,20 @@
+.todo-item {
+  display: flex;
+}
+
+.item-done, .item-undone {
+  width: 10px;
+  margin-right: 10px;
+}
+
+.item-undone {
+  background: lightblue;
+}
+
+.item-done {
+  background: mediumseagreen;
+}
+
+.item-text-done {
+  text-decoration: line-through
+}

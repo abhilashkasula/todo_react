@@ -15,6 +15,10 @@ class Input extends React.Component {
   onSubmit(event) {
     event.preventDefault();
 
+    if (!this.state.text.trim()) {
+      return;
+    }
+
     this.props.onSubmit(this.state.text);
 
     this.setState(() => {

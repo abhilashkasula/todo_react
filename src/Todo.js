@@ -33,10 +33,10 @@ class Todo extends React.Component {
 
   handleClick(id) {
     this.setState((state) => {
-      const newItems = state.todoItems.map((item) => Object.assign({}, item));
-      const item = newItems.find((item) => item.id === id);
+      const todoItems = state.todoItems.map((item) => Object.assign({}, item));
+      const item = todoItems.find((item) => item.id === id);
       item.status = item.status === 'done' ? 'undone' : 'done';
-      return {todoItems: newItems};
+      return {todoItems};
     });
   }
 

@@ -1,32 +1,23 @@
 import React from 'react';
 import TodoItems from './TodoItems';
+import Input from './Input';
 import './todo.css';
 
 class Todo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {todoItems: [], text: '', nextId: 1};
-    this.handleInput = (e) => {
-      this.handleInputValue(e.target.value);
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {todoItems: [], nextId: 1};
+    this.addItem = this.addItem.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleInputValue(text) {
-    this.setState(() => ({text}));
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-
+  addItem(text) {
     this.setState((state) => ({
       todoItems: state.todoItems.concat({
         id: state.nextId,
-        text: state.text,
+        text,
         status: 'undone',
       }),
-      text: '',
       nextId: state.nextId + 1,
     }));
   }
@@ -46,13 +37,7 @@ class Todo extends React.Component {
       <div>
         <h1 className="header">Todo</h1>
         <TodoItems items={this.state.todoItems} onClick={this.handleClick} />
-        <form onSubmit={this.handleSubmit}>
-          <input
-            value={this.state.text}
-            onChange={this.handleInput}
-            className="textbox"
-          />
-        </form>
+        <Input onSubmit={this.addItem} />
       </div>
     );
   }

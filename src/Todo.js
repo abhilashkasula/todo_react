@@ -47,6 +47,7 @@ class Todo extends React.Component {
   render() {
     return (
       <div>
+        <h1>Todo</h1>
         <TodoItems items={this.state.todoItems} onClick={this.handleClick} />
         <form onSubmit={this.handleSubmit}>
           <input value={this.state.text} onChange={this.handleInputValue} />

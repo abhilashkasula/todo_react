@@ -1,5 +1,6 @@
 .todo-item {
   display: flex;
+  margin-bottom: 10px;
 }
 
 .item-done, .item-undone {
@@ -13,6 +14,11 @@
 
 .item-done {
   background: mediumseagreen;
+}
+
+.item-text-done, .item-text-undone {
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .item-text-done {

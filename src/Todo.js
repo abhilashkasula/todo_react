@@ -34,10 +34,7 @@ class Todo extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    if (!this.state.text.trim()) {
-      return;
-    }
-
+    
     this.setState((state) => ({
       todoItems: state.todoItems.concat({text: state.text, status: 'not-done'}),
       text: '',

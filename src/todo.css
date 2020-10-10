@@ -3,7 +3,7 @@
   margin-bottom: 10px;
 }
 
-.item-done, .item-undone {
+.item-done, .item-undone, .item-doing {
   width: 10px;
   margin-right: 10px;
 }
@@ -16,7 +16,11 @@
   background: mediumseagreen;
 }
 
-.item-text-done, .item-text-undone {
+.item-doing {
+  background: orange;
+}
+
+.item-text-done, .item-text-undone, .item-text-doing {
   font-weight: 600;
   cursor: pointer;
 }

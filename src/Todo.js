@@ -26,7 +26,7 @@ class Todo extends React.Component {
     this.setState((state) => {
       const todoItems = state.todoItems.map((item) => Object.assign({}, item));
       const item = todoItems.find((item) => item.id === id);
-      const statusToggle = {done: 'undone', undone: 'done'};
+      const statusToggle = {done: 'undone', undone: 'doing', doing: 'done'};
       item.status = statusToggle[item.status];
       return {todoItems};
     });

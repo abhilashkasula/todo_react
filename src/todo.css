@@ -24,3 +24,14 @@
 .item-text-done {
   text-decoration: line-through
 }
+
+.header {
+  font-size: large;
+  font-weight: 800;
+}
+
+.textbox {
+  width: 180px;
+  font-weight: inherit;
+  font-size: inherit;
+}

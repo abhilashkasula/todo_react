@@ -6,14 +6,14 @@ class Todo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {todoItems: [], text: '', nextId: 1};
-    this.handleInputValue = (e) => {
-      this.handleInput(e.target.value);
+    this.handleInput = (e) => {
+      this.handleInputValue(e.target.value);
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleInput(text) {
+  handleInputValue(text) {
     this.setState(() => ({text}));
   }
 
@@ -43,10 +43,14 @@ class Todo extends React.Component {
   render() {
     return (
       <div>
-        <h1>Todo</h1>
+        <h1 className="header">Todo</h1>
         <TodoItems items={this.state.todoItems} onClick={this.handleClick} />
         <form onSubmit={this.handleSubmit}>
-          <input value={this.state.text} onChange={this.handleInputValue} style={{fontSize: '20px'}} />
+          <input
+            value={this.state.text}
+            onChange={this.handleInput}
+            className="textbox"
+          />
         </form>
       </div>
     );

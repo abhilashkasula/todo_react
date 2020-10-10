@@ -20,10 +20,7 @@ class Input extends React.Component {
     }
 
     this.props.onSubmit(this.state.text);
-
-    this.setState(() => {
-      return {text: ''};
-    });
+    this.setState(() => ({text: ''}));
   }
 
   render() {

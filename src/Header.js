@@ -1,6 +1,12 @@
 import React from 'react';
 import Input from './Input';
 
+const DefaultHeader = ({title, onClick}) => (
+  <h1 className="header" onClick={onClick}>
+    {title}
+  </h1>
+);
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -19,20 +25,19 @@ class Header extends React.Component {
   }
 
   render() {
-    if (this.state.editable) {
-      return (
-        <Input
-          value={this.props.title}
-          onSubmit={this.updateTitle}
-          className="header"
-        />
-      );
-    }
-    return (
-      <h1 className="header" onClick={this.setEditMode}>
-        {this.props.title}
-      </h1>
+    const input = (
+      <Input
+        value={this.props.title}
+        onSubmit={this.updateTitle}
+        className="header"
+      />
     );
+
+    const defaultHeader = (
+      <DefaultHeader title={this.props.title} onClick={this.setEditMode} />
+    );
+
+    return this.editable ? input : defaultHeader;
   }
 }
 

@@ -22,18 +22,35 @@ class Todo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {todoItems: [{text: 'Buy milk', status: 'done'}], text: ''};
-    this.handleInputValue = (e) => {this.handleInput(e.target.value)};
+    this.handleInputValue = (e) => {
+      this.handleInput(e.target.value);
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInput(text) {
     this.setState(() => ({text}));
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    if (!this.state.text.trim()) {
+      return;
+    }
+
+    this.setState((state) => ({
+      todoItems: state.todoItems.concat({text: state.text, status: 'not-done'}),
+      text: '',
+    }));
+  }
+
   render() {
     return (
       <div>
         <TodoItems items={this.state.todoItems} />
-        <input value={this.state.text} onChange={this.handleInputValue} />
+        <form onSubmit={this.handleSubmit}>
+          <input value={this.state.text} onChange={this.handleInputValue} />
+        </form>
       </div>
     );
   }

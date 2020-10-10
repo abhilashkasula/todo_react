@@ -1,34 +1,6 @@
 import React from 'react';
+import TodoItems from './TodoItems';
 import './todo.css';
-
-const TodoItem = ({id, text, status, onClick}) => {
-  // console.log(id);
-  return (
-    <div className="todo-item">
-      <div className={status === 'done' ? 'item-done' : 'item-undone'}></div>
-      <label
-        className={status === 'done' ? 'item-text-done' : null}
-        onClick={() => onClick(id)}
-      >
-        {text}
-      </label>
-    </div>
-  );
-};
-
-const TodoItems = (props) => {
-  const items = props.items.map(({id, text, status}) => (
-    <TodoItem
-      id={id}
-      text={text}
-      status={status}
-      key={id}
-      onClick={props.onClick}
-    />
-  ));
-
-  return <div>{items}</div>;
-};
 
 class Todo extends React.Component {
   constructor(props) {
@@ -65,10 +37,10 @@ class Todo extends React.Component {
 
   handleClick(id) {
     this.setState((state) => {
-      const newTodoItems = state.todoItems.map(item => Object.assign({}, item));
-      const item = newTodoItems.find((item) => item.id === id);
+      const newItems = state.todoItems.map((item) => Object.assign({}, item));
+      const item = newItems.find((item) => item.id === id);
       item.status = item.status === 'done' ? 'undone' : 'done';
-      return {todoItems: newTodoItems};
+      return {todoItems: newItems};
     });
   }
 

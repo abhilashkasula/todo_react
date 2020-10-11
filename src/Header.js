@@ -16,6 +16,7 @@ class Header extends React.Component {
   }
 
   setEditMode() {
+    console.log('in');
     this.setState(() => ({editable: true}));
   }
 
@@ -29,7 +30,7 @@ class Header extends React.Component {
       <Input
         value={this.props.title}
         onSubmit={this.updateTitle}
-        className="header"
+        className="editable-header"
       />
     );
 
@@ -37,7 +38,7 @@ class Header extends React.Component {
       <DefaultHeader title={this.props.title} onClick={this.setEditMode} />
     );
 
-    return this.editable ? input : defaultHeader;
+    return this.state.editable ? input : defaultHeader;
   }
 }
 

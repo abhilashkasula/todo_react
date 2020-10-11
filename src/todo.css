@@ -29,10 +29,14 @@
   text-decoration: line-through
 }
 
-.header {
+.header, .editable-header {
   font-size: large;
   font-weight: 800;
   margin: 15px 0;
+}
+
+.header {
+  cursor: pointer;
 }
 
 .textbox {

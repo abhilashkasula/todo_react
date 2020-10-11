@@ -11,6 +11,7 @@ class Todo extends React.Component {
     this.addItem = this.addItem.bind(this);
     this.updateStatus = this.updateStatus.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   addItem(text) {
@@ -38,11 +39,26 @@ class Todo extends React.Component {
     this.setState(() => ({title}));
   }
 
+  deleteItem(id) {
+    this.setState(({todoItems}) => {
+      const index = todoItems.findIndex((item) => item.id === id);
+      const newTodoItems = todoItems
+        .slice(0, index)
+        .concat(todoItems.slice(index + 1));
+      console.log(newTodoItems);
+      return {todoItems: newTodoItems};
+    });
+  }
+
   render() {
     return (
       <div>
         <Header title={this.state.title} onSubmit={this.updateTitle} />
-        <TodoItems items={this.state.todoItems} onClick={this.updateStatus} />
+        <TodoItems
+          items={this.state.todoItems}
+          onClick={this.updateStatus}
+          onDelete={this.deleteItem}
+        />
         <Input onSubmit={this.addItem} />
       </div>
     );

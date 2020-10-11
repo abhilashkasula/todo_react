@@ -9,6 +9,7 @@ const TodoItems = (props) => {
       status={status}
       key={id}
       onClick={props.onClick}
+      onDelete={props.onDelete}
     />
   ));
 

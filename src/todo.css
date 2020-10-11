@@ -1,6 +1,12 @@
 .todo-item {
   display: flex;
   margin-bottom: 10px;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.todo-item > div {
+  display: flex;
 }
 
 .item-done, .item-undone, .item-doing {

@@ -45,7 +45,6 @@ class Todo extends React.Component {
       const newTodoItems = todoItems
         .slice(0, index)
         .concat(todoItems.slice(index + 1));
-      console.log(newTodoItems);
       return {todoItems: newTodoItems};
     });
   }

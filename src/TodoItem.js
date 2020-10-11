@@ -1,7 +1,6 @@
 import React from 'react';
 
 const TodoItem = ({id, text, status, onClick, onDelete}) => {
-  console.log(status);
   return (
     <div className='todo-item'>
       <div onClick={() => onClick(id)}>

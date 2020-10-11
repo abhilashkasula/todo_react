@@ -12,6 +12,7 @@ class Todo extends React.Component {
     this.updateStatus = this.updateStatus.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.resetTodo = this.resetTodo.bind(this);
   }
 
   addItem(text) {
@@ -49,10 +50,14 @@ class Todo extends React.Component {
     });
   }
 
+  resetTodo() {
+    this.setState(() => ({todoItems: [], nextId: 1, title: 'Todo'}));
+  }
+
   render() {
     return (
       <div>
-        <Header title={this.state.title} onSubmit={this.updateTitle} />
+        <Header title={this.state.title} onSubmit={this.updateTitle} onReset={this.resetTodo} />
         <TodoItems
           items={this.state.todoItems}
           onClick={this.updateStatus}

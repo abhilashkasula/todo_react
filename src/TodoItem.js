@@ -1,15 +1,40 @@
 import React from 'react';
 
-const TodoItem = ({id, text, status, onClick, onDelete}) => {
-  return (
-    <div className='todo-item'>
-      <div onClick={() => onClick(id)}>
-        <div className={`item-${status}`}></div>
-        <label className={`item-text-${status}`}>{text}</label>
+class TodoItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {isHovered: false};
+    this.showDeleteOption = this.showDeleteOption.bind(this);
+    this.hideDeleteOption = this.hideDeleteOption.bind(this);
+    this.handleStatus = () => this.props.onClick(this.props.id);
+    this.handleDelete = () => this.props.onDelete(this.props.id);
+  }
+
+  showDeleteOption() {
+    this.setState(() => ({isHovered: true}));
+  }
+
+  hideDeleteOption() {
+    this.setState(() => ({isHovered: false}));
+  }
+
+  render() {
+    return (
+      <div
+        className='todo-item'
+        onMouseEnter={this.showDeleteOption}
+        onMouseLeave={this.hideDeleteOption}
+      >
+        <div onClick={this.handleStatus}>
+          <div className={`item-${this.props.status}`}></div>
+          <label className={`item-text-${this.props.status}`}>
+            {this.props.text}
+          </label>
+        </div>
+        <div onClick={this.handleDelete}>{this.state.isHovered ? 'X' : ''}</div>
       </div>
-      <div onClick={() => onDelete(id)}>X</div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default TodoItem;

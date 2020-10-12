@@ -7,7 +7,9 @@ const TodoItem = ({id, text, status, onClick, onDelete}) => {
         <div className={`item-${status}`}></div>
         <label className={`item-text-${status}`}>{text}</label>
       </div>
-      <div className='delete' onClick={() => onDelete(id) }>X</div>
+      <div className='delete' onClick={() => onDelete(id)}>
+        X
+      </div>
     </section>
   );
 };

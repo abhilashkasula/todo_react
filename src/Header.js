@@ -2,11 +2,13 @@ import React from 'react';
 import Input from './Input';
 
 const DefaultHeader = ({title, onClick, onReset}) => (
-  <header className='header-container' >
+  <header className='header-container'>
     <h1 className='header' onClick={onClick}>
       {title}
     </h1>
-    <div className='delete' onClick={() => onReset() }>X</div>
+    <div className='delete' onClick={() => onReset()}>
+      X
+    </div>
   </header>
 );
 
@@ -37,7 +39,11 @@ class Header extends React.Component {
     );
 
     const defaultHeader = (
-      <DefaultHeader title={this.props.title} onClick={this.setEditMode} onReset={this.props.onReset} />
+      <DefaultHeader
+        title={this.props.title}
+        onClick={this.setEditMode}
+        onReset={this.props.onReset}
+      />
     );
 
     return this.state.editable ? input : defaultHeader;

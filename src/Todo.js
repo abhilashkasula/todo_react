@@ -57,7 +57,11 @@ class Todo extends React.Component {
   render() {
     return (
       <div>
-        <Header title={this.state.title} onUpdate={this.updateTitle} onReset={this.resetTodo} />
+        <Header
+          title={this.state.title}
+          onUpdate={this.updateTitle}
+          onReset={this.resetTodo}
+        />
         <TodoItems
           items={this.state.todoItems}
           onClick={this.updateStatus}

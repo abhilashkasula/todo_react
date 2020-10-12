@@ -19,7 +19,6 @@ class Header extends React.Component {
   }
 
   setEditMode() {
-    console.log('in');
     this.setState(() => ({editable: true}));
   }
 

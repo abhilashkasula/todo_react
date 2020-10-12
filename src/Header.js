@@ -2,12 +2,12 @@ import React from 'react';
 import Input from './Input';
 
 const DefaultHeader = ({title, onClick, onReset}) => (
-  <div className='header-container' >
+  <header className='header-container' >
     <h1 className='header' onClick={onClick}>
       {title}
     </h1>
     <div className='delete' onClick={() => onReset() }>X</div>
-  </div>
+  </header>
 );
 
 class Header extends React.Component {

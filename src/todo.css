@@ -17,17 +17,13 @@
   cursor: pointer;
 }
 
-.todo-item:hover .delete {
+.todo-item:hover .delete, .header-container:hover .delete {
   display: block;
 }
 
 .header-container {
   
   align-items: center;
-}
-
-.header-container:hover .delete {
-  display: block;
 }
 
 .item-done, .item-undone, .item-doing {

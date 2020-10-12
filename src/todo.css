@@ -1,29 +1,13 @@
 .todo-item {
-  margin-bottom: 10px;
-  cursor: pointer;
+  display: flex;
 }
 
-.todo-item, .header-container {
+.hover-container {
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
-}
-
-.todo-content {
-  display: flex;
-}
-
-.delete {
-  display: none;
-  cursor: pointer;
-}
-
-.todo-item:hover .delete, .header-container:hover .delete {
-  display: block;
-}
-
-.header-container {
-  
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .item-done, .item-undone, .item-doing {

@@ -1,15 +1,11 @@
 import React from 'react';
 import Input from './Input';
+import Hoverable from './Hoverable';
 
-const DefaultHeader = ({title, onClick, onReset}) => (
-  <header className='header-container'>
-    <h1 className='header' onClick={onClick}>
-      {title}
-    </h1>
-    <div className='delete' onClick={() => onReset()}>
-      X
-    </div>
-  </header>
+const DefaultHeader = ({title, onClick}) => (
+  <h1 className='header' onClick={onClick}>
+    {title}
+  </h1>
 );
 
 class Header extends React.Component {
@@ -38,11 +34,13 @@ class Header extends React.Component {
       />
     );
 
+    const DefaultHeaderWithHover = Hoverable(DefaultHeader);
+
     const defaultHeader = (
-      <DefaultHeader
+      <DefaultHeaderWithHover
         title={this.props.title}
         onClick={this.setEditMode}
-        onReset={this.props.onReset}
+        onDelete={this.props.onReset}
       />
     );
 

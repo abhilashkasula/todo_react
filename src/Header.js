@@ -23,7 +23,7 @@ class Header extends React.Component {
   }
 
   updateTitle(text) {
-    this.props.onSubmit(text);
+    this.props.onUpdate(text);
     this.setState(() => ({editable: false}));
   }
 

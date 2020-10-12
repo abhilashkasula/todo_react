@@ -1,76 +1,53 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TodoItems from './TodoItems';
 import Header from './Header';
 import Input from './Input';
 import './todo.css';
 
-class Todo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {todoItems: [], nextId: 1, title: 'Todo'};
-    this.addItem = this.addItem.bind(this);
-    this.updateStatus = this.updateStatus.bind(this);
-    this.updateTitle = this.updateTitle.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
-    this.resetTodo = this.resetTodo.bind(this);
-  }
+const Todo = () => {
+  const [items, updateItems] = useState([]);
+  const [title, setTitle] = useState('Todo');
+  const [nextId, setNextId] = useState(1);
 
-  addItem(text) {
-    this.setState((state) => ({
-      todoItems: state.todoItems.concat({
-        id: state.nextId,
-        text,
-        status: 'undone',
-      }),
-      nextId: state.nextId + 1,
-    }));
-  }
-
-  updateStatus(id) {
-    this.setState((state) => {
-      const todoItems = state.todoItems.map((item) => Object.assign({}, item));
-      const item = todoItems.find((item) => item.id === id);
+  const updateStatus = (id) => {
+    updateItems((items) => {
+      const newItems = items.map((item) => Object.assign({}, item));
+      const item = newItems.find((item) => item.id === id);
       const statusToggle = {done: 'undone', undone: 'doing', doing: 'done'};
       item.status = statusToggle[item.status];
-      return {todoItems};
+      return newItems;
     });
-  }
+  };
 
-  updateTitle(title) {
-    this.setState(() => ({title}));
-  }
+  const deleteItem = (id) => {
+    updateItems((items) => items.filter((item) => item.id !== id));
+  };
 
-  deleteItem(id) {
-    this.setState(({todoItems}) => {
-      const index = todoItems.findIndex((item) => item.id === id);
-      const newTodoItems = todoItems
-        .slice(0, index)
-        .concat(todoItems.slice(index + 1));
-      return {todoItems: newTodoItems};
+  const addItem = (text) => {
+    updateItems((items) => {
+      const newItem = {id: nextId, text, status: 'undone'};
+      setNextId(nextId + 1);
+      return items.concat(newItem);
     });
-  }
+  };
 
-  resetTodo() {
-    this.setState(() => ({todoItems: [], nextId: 1, title: 'Todo'}));
-  }
+  const reset = () => {
+    updateItems([]);
+    setNextId(1);
+    setTitle('Todo');
+  };
 
-  render() {
-    return (
-      <div>
-        <Header
-          title={this.state.title}
-          onUpdate={this.updateTitle}
-          onReset={this.resetTodo}
-        />
-        <TodoItems
-          items={this.state.todoItems}
-          onClick={this.updateStatus}
-          onDelete={this.deleteItem}
-        />
-        <Input onSubmit={this.addItem} />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Header
+        title={title}
+        onUpdate={(text) => setTitle(text)}
+        onReset={reset}
+      />
+      <TodoItems items={items} onClick={updateStatus} onDelete={deleteItem} />
+      <Input onSubmit={addItem} />
+    </div>
+  );
+};
 
 export default Todo;

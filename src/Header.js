@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Input from './Input';
 import Hoverable from './Hoverable';
 
@@ -8,44 +8,25 @@ const DefaultHeader = ({title, onClick}) => (
   </h1>
 );
 
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {editable: false};
-    this.setEditMode = this.setEditMode.bind(this);
-    this.updateTitle = this.updateTitle.bind(this);
-  }
+const Header = ({title, onUpdate, onReset}) => {
+  const [editable, setEditable] = useState(false);
 
-  setEditMode() {
-    this.setState(() => ({editable: true}));
-  }
+  const updateHeader = (text) => {
+    onUpdate(text);
+    setEditable(false);
+  };
 
-  updateTitle(text) {
-    this.props.onUpdate(text);
-    this.setState(() => ({editable: false}));
-  }
+  const DefaultHeaderWithHover = Hoverable(DefaultHeader);
 
-  render() {
-    const input = (
-      <Input
-        value={this.props.title}
-        onSubmit={this.updateTitle}
-        className='editable-header'
-      />
-    );
-
-    const DefaultHeaderWithHover = Hoverable(DefaultHeader);
-
-    const defaultHeader = (
-      <DefaultHeaderWithHover
-        title={this.props.title}
-        onClick={this.setEditMode}
-        onDelete={this.props.onReset}
-      />
-    );
-
-    return this.state.editable ? input : defaultHeader;
-  }
-}
+  return editable ? (
+    <Input value={title} onSubmit={updateHeader} className='editable-header' />
+  ) : (
+    <DefaultHeaderWithHover
+      title={title}
+      onClick={() => setEditable(true)}
+      onDelete={onReset}
+    />
+  );
+};
 
 export default Header;

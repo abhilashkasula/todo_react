@@ -1,50 +1,27 @@
-import React, {useState} from 'react';
+import React, {useReducer} from 'react';
 import TodoItems from './TodoItems';
 import Header from './Header';
 import Input from './Input';
+import {todoReducer, initialState} from './todoReducer';
 import './todo.css';
 
 const Todo = () => {
-  const [items, updateItems] = useState([]);
-  const [title, setTitle] = useState('Todo');
-  const [nextId, setNextId] = useState(1);
+  const [state, dispatch] = useReducer(todoReducer, initialState);
 
-  const updateStatus = (id) => {
-    updateItems((items) => {
-      const newItems = items.map((item) => Object.assign({}, item));
-      const item = newItems.find((item) => item.id === id);
-      const statusToggle = {done: 'undone', undone: 'doing', doing: 'done'};
-      item.status = statusToggle[item.status];
-      return newItems;
-    });
-  };
-
-  const deleteItem = (id) => {
-    updateItems((items) => items.filter((item) => item.id !== id));
-  };
-
-  const addItem = (text) => {
-    updateItems((items) => {
-      const newItem = {id: nextId, text, status: 'undone'};
-      setNextId(nextId + 1);
-      return items.concat(newItem);
-    });
-  };
-
-  const reset = () => {
-    updateItems([]);
-    setNextId(1);
-    setTitle('Todo');
-  };
+  const updateTitle = (text) => dispatch({type: 'UPDATE_TITLE', text});
+  const reset = () => dispatch({type: 'RESET'});
+  const updateItem = (id) => dispatch({type: 'UPDATE_STATUS', id});
+  const deleteItem = (id) => dispatch({type: 'DELETE_ITEM', id});
+  const addItem = (text) => dispatch({type: 'ADD_ITEM', text});
 
   return (
     <div>
-      <Header
-        title={title}
-        onUpdate={(text) => setTitle(text)}
-        onReset={reset}
+      <Header title={state.title} onUpdate={updateTitle} onReset={reset} />
+      <TodoItems
+        items={state.items}
+        onClick={updateItem}
+        onDelete={deleteItem}
       />
-      <TodoItems items={items} onClick={updateStatus} onDelete={deleteItem} />
       <Input onSubmit={addItem} />
     </div>
   );

@@ -1,21 +1,41 @@
-import React, {useReducer} from 'react';
+import React, {useEffect, useState} from 'react';
 import TodoItems from './TodoItems';
 import Header from './Header';
 import Input from './Input';
-import {todoReducer, initialState} from './todoReducer';
-import TodoContext from './TodoContext';
 import './todo.css';
+import TodoAPI from './TodoAPI';
 
 const Todo = () => {
-  const [state, dispatch] = useReducer(todoReducer, initialState);
-  const addItem = (text) => dispatch({type: 'ADD_ITEM', text});
+  const [state, setState] = useState({items: [], id: 1, title: 'Todo'});
+
+  useEffect(() => {
+    TodoAPI.initData().then((state) => setState(state));
+  }, []);
+
+  const addItem = (text) =>
+    TodoAPI.addItem(text).then((state) => setState(state));
+
+  const updateTitle = (title) =>
+    TodoAPI.updateTitle(title).then((state) => setState(state));
+
+  const reset = () => TodoAPI.reset().then((state) => setState(state));
+
+  const updateItem = (id) =>
+    TodoAPI.updateItem(id).then((state) => setState(state));
+
+  const deleteItem = (id) =>
+    TodoAPI.deleteItem(id).then((state) => setState(state));
 
   return (
-    <TodoContext.Provider value={{state, dispatch}}>
-      <Header title={state.title} />
-      <TodoItems items={state.items} />
+    <div>
+      <Header title={state.title} onUpdate={updateTitle} onReset={reset} />
+      <TodoItems
+        items={state.items}
+        onUpdate={updateItem}
+        onDelete={deleteItem}
+      />
       <Input onSubmit={addItem} />
-    </TodoContext.Provider>
+    </div>
   );
 };
 

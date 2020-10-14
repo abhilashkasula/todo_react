@@ -1,22 +1,20 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import Input from './Input';
 import DefaultHeader from './DefaultHeader';
-import TodoContext from './TodoContext';
 
 const Header = ({title, onUpdate, onReset}) => {
   const [editable, setEditable] = useState(false);
-  const {dispatch} = useContext(TodoContext);
 
   const edit = () => setEditable(true);
   const updateHeader = (text) => {
-    dispatch({type: 'UPDATE_TITLE', text});
+    onUpdate(text);
     setEditable(false);
   };
 
   return editable ? (
     <Input value={title} onSubmit={updateHeader} className='editable-header' />
   ) : (
-    <DefaultHeader title={title} onClick={edit}/>
+    <DefaultHeader title={title} onClick={edit} onReset={onReset} />
   );
 };
 

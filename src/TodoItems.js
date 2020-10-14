@@ -8,6 +8,8 @@ const TodoItems = (props) => {
       text={text}
       status={status}
       key={id}
+      onUpdate={props.onUpdate}
+      onDelete={props.onDelete}
     />
   ));
 

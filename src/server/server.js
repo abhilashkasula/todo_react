@@ -9,11 +9,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-app.locals.db = {
-  items: [{id: 0, text: 'Buy milk', status: 'done'}],
-  title: 'Todo',
-  id: 1,
-};
+app.locals.db = {items: [], title: 'Todo', id: 1};
 
 app.get('/api/init', (req, res) => res.json(req.app.locals.db));
 
@@ -32,11 +28,7 @@ app.post('/api/updateTitle', (req, res) => {
 });
 
 app.post('/api/reset', (req, res) => {
-  req.app.locals.db = {
-    items: [{id: 0, text: 'Buy milk', status: 'done'}],
-    title: 'Todo',
-    id: 1,
-  };
+  req.app.locals.db = {items: [], title: 'Todo', id: 1};
   res.json(req.app.locals.db);
 });
 

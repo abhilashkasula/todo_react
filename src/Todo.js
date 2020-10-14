@@ -6,11 +6,9 @@ import './todo.css';
 import TodoAPI from './TodoAPI';
 
 const Todo = () => {
-  const [state, setState] = useState({items: [], id: 1, title: 'Todo'});
+  const [state, setState] = useState({items: [], title: 'Todo'});
 
-  useEffect(() => {
-    TodoAPI.initData().then((state) => setState(state));
-  }, []);
+  useEffect(() => TodoAPI.initData().then((state) => setState(state)), []);
 
   const addItem = (text) =>
     TodoAPI.addItem(text).then((state) => setState(state));
